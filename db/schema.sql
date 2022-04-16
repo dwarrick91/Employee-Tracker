@@ -18,14 +18,14 @@ CREATE TABLE role (
 );
 
 CREATE TABLE employee (
-    id PRIMARY KEY,
+    id INT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
-    role_id INT FOREIGN KEY,
-    -- manager_id is forign key to anther employee that is the manager of the current employee (null if the employee has no manager)
-    manager_id INT FOREIGN KEY
+    role_id INT,
     FOREIGN KEY (role_id)
     REFERENCES role(id),
+    -- manager_id is forign key to anther employee that is the manager of the current employee (null if the employee has no manager)
+    manager_id INT,
     FOREIGN KEY (manager_id)
     REFERENCES employee(id)
     ON DELETE SET NULL
