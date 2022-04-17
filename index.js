@@ -1,9 +1,7 @@
 const inquirer = require("inquirer");
-
+const viewAllEmployees = require("./lib/query")
 const db = require("./server")
-db.query('SELECT * FROM department', function (err, results) {
-    console.log(results);
-  });
+
 
   const employeeTracker = () => {
     return inquirer
@@ -16,6 +14,19 @@ db.query('SELECT * FROM department', function (err, results) {
         },
         
       ])
+      .then((userChoice) => {
+        if (userChoice.menu === "View All Employees") {
+          viewAllEmployees();
+         employeeTracker();
+          
+         }
+        // db.query('SELECT * FROM employee', function (err, results) {
+        //   console.table(results);
+        })
+    //   }else if (userChoice.menu === "Add Employee") {
+    //     db.query('INSERT INTO employee')
+    //   }
+    // });
       // .then((answers) => {
       //   const manager = new Manager(
       //     answers.name,
