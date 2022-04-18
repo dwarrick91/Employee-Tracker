@@ -5,7 +5,7 @@ const query = require("./lib/query");
 const db = require("./server");
 
 const employeeTracker = () => {
-   inquirer
+   return inquirer
     .prompt([
       {
         type: "list",
@@ -23,30 +23,31 @@ const employeeTracker = () => {
         ],
       },
     ])
-    .then((userChoice) => {
+    .then(async (userChoice) => {
       console.log("Hello",userChoice);
       if (userChoice.menu === "View All Employees") {
         query.viewAllEmployees()
         employeeTracker();
         return
       } else if (userChoice.menu === "Add Employee") {
-        query.addEmployee();
+        await query.addEmployee();
         employeeTracker();
       }else if (userChoice.menu === "Update Employee Role"){
-        query.updateRole();
+        await query.updateRole();
         employeeTracker();
       }else if (userChoice.menu === "View All Roles"){
         query.viewAllRoles();
         employeeTracker();
         return
       }else if (userChoice.menu === "Add Role") {
-        query.addRole();
+       await query.addRole();
         employeeTracker();
       }else if (userChoice.menu === "View All Departments") {
         query.viewAllDepartments();
         employeeTracker();
       }else if (userChoice.menu === "Add Department"){
-        query.addDepartment();
+        await query.addDepartment();
+        employeeTracker();
 
       }else {
         return console.log("Have a nice day!");;
