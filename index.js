@@ -1,10 +1,11 @@
 const inquirer = require("inquirer");
-const { allowedNodeEnvironmentFlags } = require("process");
-const viewAllEmployees = require("./lib/query");
+// const { allowedNodeEnvironmentFlags } = require("process");
+const query = require("./lib/query");
+
 const db = require("./server");
 
 const employeeTracker = () => {
-  return inquirer
+   inquirer
     .prompt([
       {
         type: "list",
@@ -23,23 +24,30 @@ const employeeTracker = () => {
       },
     ])
     .then((userChoice) => {
+      console.log("Hello",userChoice);
       if (userChoice.menu === "View All Employees") {
-        viewAllEmployees();
+        query.viewAllEmployees()
         employeeTracker();
+        return
       } else if (userChoice.menu === "Add Employee") {
-        addEmployee();
-      }else if (userChoice.menu === "Update Employee Role"){
-        updateRole();
-      }else if (userChoice.menu === "View All Roles"){
-        viewAllRoles();
+        query.addEmployee();
         employeeTracker();
+      }else if (userChoice.menu === "Update Employee Role"){
+        query.updateRole();
+        employeeTracker();
+      }else if (userChoice.menu === "View All Roles"){
+        query.viewAllRoles();
+        employeeTracker();
+        return
       }else if (userChoice.menu === "Add Role") {
-        addRole();
+        query.addRole();
+        employeeTracker();
       }else if (userChoice.menu === "View All Departments") {
-        viewAllDepartments();
+        query.viewAllDepartments();
         employeeTracker();
       }else if (userChoice.menu === "Add Department"){
-        addDepartment();
+        query.addDepartment();
+
       }else {
         return console.log("Have a nice day!");;
       }
@@ -69,3 +77,5 @@ function init() {
 
 // Function call to initialize app
 init();
+
+module.exports = employeeTracker;
