@@ -2,10 +2,10 @@ const inquirer = require("inquirer");
 // const { allowedNodeEnvironmentFlags } = require("process");
 const query = require("./lib/query");
 
-const db = require("./server");
 
-const employeeTracker = () => {
-   return inquirer
+
+const employeeTracker = async () => {
+   const userChoice = await inquirer
     .prompt([
       {
         type: "list",
@@ -22,61 +22,46 @@ const employeeTracker = () => {
           "Quit",
         ],
       },
-    ])
-    .then(async (userChoice) => {
-      console.log("Hello",userChoice);
-      if (userChoice.menu === "View All Employees") {
-        query.viewAllEmployees()
-        employeeTracker();
-        return
-      } else if (userChoice.menu === "Add Employee") {
-        await query.addEmployee();
-        employeeTracker();
-      }else if (userChoice.menu === "Update Employee Role"){
-        await query.updateRole();
-        employeeTracker();
-      }else if (userChoice.menu === "View All Roles"){
-        query.viewAllRoles();
-        employeeTracker();
-        return
-      }else if (userChoice.menu === "Add Role") {
-       await query.addRole();
-        employeeTracker();
-      }else if (userChoice.menu === "View All Departments") {
-        query.viewAllDepartments();
-        employeeTracker();
-      }else if (userChoice.menu === "Add Department"){
-        await query.addDepartment();
-        employeeTracker();
+    ]);
+  
+  if (userChoice.menu === "View All Employees") {
+    query.viewAllEmployees();
+    console.log('\b');
+    // employeeTracker();
 
-      }else {
-        return console.log("Have a nice day!");;
-      }
+  } else if (userChoice.menu === "Add Employee") {
+    await query.addEmployee();
+    console.log('\b');
+    // employeeTracker();
+  } else if (userChoice.menu === "Update Employee Role") {
+    await query.updateRole();
+    console.log('\b');
+    // employeeTracker();
+  } else if (userChoice.menu === "View All Roles") {
+    query.viewAllRoles();
+    console.log('\b');
+    // employeeTracker();
+    
+  } else if (userChoice.menu === "Add Role") {
+    await query.addRole();
+    // employeeTracker();
+  } else if (userChoice.menu === "View All Departments") {
+    query.viewAllDepartments();
+    // employeeTracker();
+  } else if (userChoice.menu === "Add Department") {
+    await query.addDepartment();
+    // employeeTracker();
 
-      // db.query('SELECT * FROM employee', function (err, results) {
-      //   console.table(results);
-    });
-  //   }else if (userChoice.menu === "Add Employee") {
-  //     db.query('INSERT INTO employee')
-  //   }
-  // });
-  // .then((answers) => {
-  //   const manager = new Manager(
-  //     answers.name,
-  //     answers.id,
-  //     answers.email,
-  //     answers.officeNumber
-  //   );
-  //   teamMembers.push(manager);
-  //   teamMenu();
-  // });
+  } else {
+    return console.log("Have a nice day!");;
+  }
+ await employeeTracker()
 };
 
-function init() {
+async function  init() {
   employeeTracker();
 }
 
 // Function call to initialize app
-init();
+ init();
 
-module.exports = employeeTracker;
