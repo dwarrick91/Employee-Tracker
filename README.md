@@ -23,7 +23,7 @@ run "node index.js"
 follow prompts
 
 ## Usage
-[![A video thumbnail shows the command-line employee management application](https://drive.google.com/file/d/1g0oiFja-py0T-7FErrPoV-8EgX4BXPeO/view)
+![Employee Tracker demo](./assets/images/EmployeeTracker.gif)
 
 ## Credits
 
